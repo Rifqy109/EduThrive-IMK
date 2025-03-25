@@ -223,6 +223,49 @@
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
 
+        <!-- Audio -->
+        <audio id="background-audio" src="music.mp3" loop></audio>
+        <div class="audio-controls">
+            <button id="play-pause-btn">Pause</button>
+            <button id="next-btn">Next</button>
+        </div>
+        <script>
+            window.addEventListener('load', function() {
+                var audio = document.getElementById('background-audio');
+                var playPauseBtn = document.getElementById('play-pause-btn');
+                var nextBtn = document.getElementById('next-btn');
+                
+                var playlist = [
+                    'music.mp3',
+                    'music2.mp3',
+                ];
+                var currentTrack = 0;
+
+                audio.src = playlist[currentTrack];
+                audio.play().catch(function(error) {
+                    console.log('Autoplay was prevented:', error);
+                });
+
+                playPauseBtn.addEventListener('click', function() {
+                    if (audio.paused) {
+                        audio.play();
+                        playPauseBtn.textContent = 'Pause';
+                    } else {
+                        audio.pause();
+                        playPauseBtn.textContent = 'Play';
+                    }
+                });
+
+                nextBtn.addEventListener('click', function() {
+                    currentTrack = (currentTrack + 1) % playlist.length;
+                    audio.src = playlist[currentTrack];
+                    audio.play();
+                    playPauseBtn.textContent = 'Pause';
+                });
+            });
+        </script>
+
+
     </body>
 </html>
 </html>
